@@ -352,10 +352,10 @@ class Direction():
 
 
 #Global Directions
-UP = Direction("up", (0, -1))
-RIGHT = Direction("right", (1, 0))
-DOWN = Direction("down", (0, 1))
-LEFT = Direction("left", (-1, 0))
+UP = Direction("north", (0, -1))
+RIGHT = Direction("east", (1, 0))
+DOWN = Direction("south", (0, 1))
+LEFT = Direction("west", (-1, 0))
 
 
 
