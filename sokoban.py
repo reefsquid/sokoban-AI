@@ -2,7 +2,7 @@
 
     A) Class SokobanState
 
-    A specializion of the StateSpace Class that is tailored to the game of Sokoban.
+    A specialization of the StateSpace Class that is tailored to the game of Sokoban.
 
     B) class Direction
 
@@ -133,16 +133,16 @@ class SokobanState(StateSpace):
                     map[storage_point[1]][storage_point[0]] = bg_colours[self.storage_colours[self.storage[storage_point]]] + '.' + bg_colours['normal']
         else:
             for (i, storage_point) in enumerate(self.storage):
-                map[storage_point[1]][storage_point[0]] = '.'
+                map[storage_point[1]][storage_point[0]] = 'S'
         for obstacle in self.obstacles:
-            map[obstacle[1]][obstacle[0]] = '#'
-        map[self.robot[1]][self.robot[0]] = '?'
+            map[obstacle[1]][obstacle[0]] = 'O'
+        map[self.robot[1]][self.robot[0]] = 'R'
         if self.box_colours:
             if disable_terminal_colouring:
                 for box in self.boxes:
                     if box in self.storage:
                         if self.restrictions is None or box in self.restrictions[self.boxes[box]]:
-                            map[box[1]][box[0]] = '$'
+                            map[box[1]][box[0]] = 'B'
                         else:
                             map[box[1]][box[0]] = 'x'
                     else:
@@ -151,7 +151,7 @@ class SokobanState(StateSpace):
                 for box in self.boxes:
                     if box in self.storage:
                         if self.restrictions is None or box in self.restrictions[self.boxes[box]]:
-                            map[box[1]][box[0]] = bg_colours[self.storage_colours[self.storage[box]]] + fg_colours[self.box_colours[self.boxes[box]]] + '$' + bg_colours['normal']
+                            map[box[1]][box[0]] = bg_colours[self.storage_colours[self.storage[box]]] + fg_colours[self.box_colours[self.boxes[box]]] + 'B' + bg_colours['normal']
                         else:
                             map[box[1]][box[0]] = bg_colours[self.storage_colours[self.storage[box]]] + fg_colours[self.box_colours[self.boxes[box]]] + 'x' + bg_colours['normal']
                     else:
@@ -160,17 +160,17 @@ class SokobanState(StateSpace):
             for box in self.boxes:
                 if box in self.storage:
                     if self.restrictions is None or box in self.restrictions[self.boxes[box]]:
-                        map[box[1]][box[0]] = '$'
+                        map[box[1]][box[0]] = 'B'
                     else:
                         map[box[1]][box[0]] = 'x'
                 else:
                     map[box[1]][box[0]] = '*'
 
         for y in range(0, self.height):
-            map[y] = ['#'] + map[y]
-            map[y] = map[y] + ['#']
-        map = ['#' * (self.width + 2)] + map
-        map = map + ['#' * (self.width + 2)]
+            map[y] = ['O'] + map[y]
+            map[y] = map[y] + ['O']
+        map = ['O' * (self.width + 2)] + map
+        map = map + ['O' * (self.width + 2)]
 
         s = ''
         for row in map:
