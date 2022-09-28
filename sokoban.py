@@ -40,7 +40,7 @@ class SokobanState(StateSpace):
         self.restrictions = restrictions
         self.box_colours = box_colours
         self.storage_colours = storage_colours
-
+# Successors function
     def successors(self):
         """
         Generate all the actions that can be performed from this state, and the states those actions will create.        
@@ -92,6 +92,7 @@ class SokobanState(StateSpace):
         """
         return hash((self.robot, frozenset(self.boxes.items())))
 
+    # Initiate function
     def state_string(self):
         """
         Return a string representation of a state that can be printed to stdout.

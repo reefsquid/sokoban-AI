@@ -5,13 +5,96 @@ from search import *
 #from test_problems import PROBLEMS
 
 #Select what to test
+
+#BFS
+test_bfs = True
+
+#DFS
+test_dfs = False
+
 # Manhattan Distance Heuristic
 test_manhattan = False
+
+#Non-Trivial Heuristic
+test_alternate = False
+
 # Greedy Best
 test_anytime_gbfs = False
+
 # A*
-test_anytime_weighted_astar = True
+test_anytime_weighted_astar = False
+
+#F-val
 test_fval_function = False
+
+#BFS
+if test_bfs:
+    len_benchmark = [23, 35, 27, 20, 41, 41, -99, -99, -99, -99]
+
+    ##############################################################
+    # TEST BFS
+    print('Testing BFS')
+
+    solved = 0;
+    unsolved = [];
+    benchmark = 0;
+    timebound = 10  # 10 second time limit
+    for i in range(0, len(PROBLEMS)):
+        print("*************************************")
+        print("PROBLEM {}".format(i+1))
+
+        s0 = PROBLEMS[i]  # Problems get harder as i gets bigger
+        se = SearchEngine('breadth_first', 'full')
+        se.init_search(s0, goal_fn=sokoban_goal_state, heur_fn=heur_alternate)
+        # se.init_search(s0, goal_fn=sokoban_goal_state, heur_fn=heur_euclidean_distance)
+        final = se.search(timebound)
+
+        if final:
+            final.print_path()
+            solved += 1
+        else:
+            unsolved.append(i)
+
+    print("\n*************************************")
+    print("Of 10 initial problems, {} were solved in less than {} seconds by this solver.".format(solved, timebound))
+    print("Problems that remain unsolved in the set are Problems: {}".format(unsolved))
+    print("The benchmark implementation solved 14 out of the 40 practice problems given 4 seconds.")
+    print("*************************************\n")
+    ##############################################################
+#DFS
+if test_dfs:
+
+    ##############################################################
+    # TEST BFS
+    print('Testing DFS')
+    print('Testing alternate heuristic with greedy best-first search')
+
+    solved = 0;
+    unsolved = [];
+    benchmark = 0;
+    timebound = 4  # 4 second time limit
+    for i in range(0, len(PROBLEMS)):
+        print("*************************************")
+        print("PROBLEM {}".format(i+1))
+
+        s0 = PROBLEMS[i]  # Problems get harder as i gets bigger
+        se = SearchEngine('depth_first', 'full')
+        se.init_search(s0, goal_fn=sokoban_goal_state, heur_fn=heur_alternate)
+        # se.init_search(s0, goal_fn=sokoban_goal_state, heur_fn=heur_euclidean_distance)
+        final = se.search(timebound)
+
+        if final:
+            final.print_path()
+            solved += 1
+        else:
+            unsolved.append(i)
+
+    print("\n*************************************")
+    print("Of 10 initial problems, {} were solved in less than {} seconds by this solver.".format(solved, timebound))
+    print("Problems that remain unsolved in the set are Problems: {}".format(unsolved))
+    print("The benchmark implementation solved 14 out of the 40 practice problems given 4 seconds.")
+    print("*************************************\n")
+    ##############################################################
 
 if test_manhattan:
     ##############################################################
@@ -43,7 +126,36 @@ if test_manhattan:
     print("States that were incorrect: {}".format(unsolved))      
     print("*************************************\n") 
     ##############################################################
+#non-trivial heuristic
+if test_alternate:
 
+  ##############################################################
+  # TEST ALTERNATE HEURISTIC
+  print('Testing alternate heuristic with greedy best-first search')
+
+  solved = 0; unsolved = []; benchmark = 0; timebound = 4 #4 second time limit
+  for i in range(0, len(PROBLEMS)):
+    print("*************************************")
+    print("PROBLEM {}".format(i))
+
+    s0 = PROBLEMS[i] #Problems get harder as i gets bigger
+    se = SearchEngine('best_first', 'full')
+    se.init_search(s0, goal_fn=sokoban_goal_state, heur_fn=heur_alternate)
+    #se.init_search(s0, goal_fn=sokoban_goal_state, heur_fn=heur_euclidean_distance)
+    final = se.search(timebound)
+
+    if final:
+      final.print_path()
+      solved += 1
+    else:
+      unsolved.append(i)
+
+  print("\n*************************************")
+  print("Of 10 initial problems, {} were solved in less than {} seconds by this solver.".format(solved, timebound))
+  print("Problems that remain unsolved in the set are Problems: {}".format(unsolved))
+  print("The benchmark implementation solved 14 out of the 40 practice problems given 4 seconds.")
+  print("*************************************\n")
+  ##############################################################
 
 if test_anytime_gbfs:
 
@@ -76,9 +188,10 @@ if test_anytime_gbfs:
   print("The benchmark implementation solved 6 out of the 10 practice problems given 8 seconds.")  
   print("*************************************\n") 
   ##############################################################
-#BFS
 
-#DFS
+
+
+#A Star
 if test_anytime_weighted_astar:
 
   len_benchmark = [23, 35, 27, 20, 41, 41, -99, -99, -99, -99]

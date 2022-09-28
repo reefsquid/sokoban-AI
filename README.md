@@ -6,14 +6,12 @@ To run the program, do the following:
 1) Using Github Desktop, select File > Clone Repository and paste the following forked url: https://github.com/reefsquid/sokoban-AI
 2) In Github Desktop, open the program using pycharm.
 3) Select the file test_script.py.
-4) Beginning on line 7, change the boolean state to 'TRUE' for the algorithm you wish to run and all other algorithms set to 'FALSE'.
+4) Beginning on line 7, change the boolean state to 'True' for the algorithm you wish to run and all other algorithms set to 'False'.
 ensure all files are in the same working directory and run the test scripts. Additional test cases can be added.
 5) Run the program.
 
 Work Cited
-
 1) Fung, A (angusfung), sokoban-AI, Github, accessed September 27, 2022, https://github.com/angusfung/sokoban-AI
-
 
 
 Sokoban_AI
