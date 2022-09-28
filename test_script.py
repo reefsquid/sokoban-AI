@@ -1,14 +1,82 @@
 
-# import student's functions
 from solution import *
 from search import *
-#from test_problems import PROBLEMS
 
-#Select what to test
+
+# Select algorithm to test
+test_breadth_first_search = True
+test_depth_first_search = False
 test_manhattan = False
-test_anytime_gbfs = True
+test_anytime_gbfs = False
 test_anytime_weighted_astar = False
 test_fval_function = False
+test_alternate = True
+
+if test_breadth_first_search:
+
+    ##############################################################
+    # TEST ALTERNATE HEURISTIC
+    print('Testing alternate heuristic with breadth-first search')
+
+    solved = 0;
+    unsolved = [];
+    benchmark = 0;
+    timebound = 4  # 4 second time limit
+    for i in range(0, len(PROBLEMS)):
+        print("*************************************")
+        print("PROBLEM {}".format(i+1))
+
+        s0 = PROBLEMS[i]  # Problems get harder as i gets bigger
+        se = SearchEngine('breadth_first', 'full')
+        se.init_search(s0, goal_fn=sokoban_goal_state, heur_fn=heur_alternate)
+        # se.init_search(s0, goal_fn=sokoban_goal_state, heur_fn=heur_euclidean_distance)
+        final = se.search(timebound)
+
+        if final:
+            final.print_path()
+            solved += 1
+        else:
+            unsolved.append(i)
+
+    print("\n*************************************")
+    print("Of 10 initial problems, {} were solved in less than {} seconds by this solver.".format(solved, timebound))
+    print("Problems that remain unsolved in the set are Problems: {}".format(unsolved))
+    print("The benchmark implementation solved 14 out of the 40 practice problems given 4 seconds.")
+    print("*************************************\n")
+    ##############################################################
+
+if test_depth_first_search:
+
+    ##############################################################
+    # TEST ALTERNATE HEURISTIC
+    print('Testing alternate heuristic with depth-first search')
+
+    solved = 0;
+    unsolved = [];
+    benchmark = 0;
+    timebound = 4  # 4 second time limit
+    for i in range(0, len(PROBLEMS)):
+        print("*************************************")
+        print("PROBLEM {}".format(i+1))
+
+        s0 = PROBLEMS[i]  # Problems get harder as i gets bigger
+        se = SearchEngine('depth_first', 'full')
+        se.init_search(s0, goal_fn=sokoban_goal_state, heur_fn=heur_alternate)
+        # se.init_search(s0, goal_fn=sokoban_goal_state, heur_fn=heur_euclidean_distance)
+        final = se.search(timebound)
+
+        if final:
+            final.print_path()
+            solved += 1
+        else:
+            unsolved.append(i)
+
+    print("\n*************************************")
+    print("Of 10 initial problems, {} were solved in less than {} seconds by this solver.".format(solved, timebound))
+    print("Problems that remain unsolved in the set are Problems: {}".format(unsolved))
+    print("The benchmark implementation solved 14 out of the 40 practice problems given 4 seconds.")
+    print("*************************************\n")
+    ##############################################################
 
 if test_manhattan:
     ##############################################################
@@ -20,8 +88,8 @@ if test_manhattan:
 
     solved = 0; unsolved = []
 
-    for i in range(0, 10):
-        print("PROBLEM {}".format(i))
+    for i in range(0, 6):
+        print("PROBLEM {}".format(i+1))
 
         s0 = PROBLEMS[i]
 
@@ -51,9 +119,9 @@ if test_anytime_gbfs:
   print('Testing Anytime GBFS')
 
   solved = 0; unsolved = []; benchmark = 0; timebound = 8 #8 second time limit 
-  for i in range(0, 10):
+  for i in range(0, 6):
     print("*************************************")  
-    print("PROBLEM {}".format(i))
+    print("PROBLEM {}".format(i+1))
 
     s0 = PROBLEMS[i] #Problems get harder as i gets bigger
     weight = 10
@@ -84,9 +152,9 @@ if test_anytime_weighted_astar:
   print('Testing Anytime Weighted A Star')
 
   solved = 0; unsolved = []; benchmark = 0; timebound = 8 #8 second time limit 
-  for i in range(0, 10):
+  for i in range(0, 6):
     print("*************************************")  
-    print("PROBLEM {}".format(i))
+    print("PROBLEM {}".format(i+1))
 
     s0 = PROBLEMS[i] #Problems get harder as i gets bigger
     weight = 10
@@ -138,4 +206,35 @@ if test_fval_function:
   print("*************************************\n") 
   ##############################################################
 
+if test_alternate:
 
+    ##############################################################
+    # TEST ALTERNATE HEURISTIC
+    print('Testing alternate heuristic with greedy best-first search')
+
+    solved = 0;
+    unsolved = [];
+    benchmark = 0;
+    timebound = 4  # 4 second time limit
+    for i in range(0, len(PROBLEMS)):
+        print("*************************************")
+        print("PROBLEM {}".format(i+1))
+
+        s0 = PROBLEMS[i]  # Problems get harder as i gets bigger
+        se = SearchEngine('best_first', 'full')
+        se.init_search(s0, goal_fn=sokoban_goal_state, heur_fn=heur_alternate)
+        # se.init_search(s0, goal_fn=sokoban_goal_state, heur_fn=heur_euclidean_distance)
+        final = se.search(timebound)
+
+        if final:
+            final.print_path()
+            solved += 1
+        else:
+            unsolved.append(i)
+
+    print("\n*************************************")
+    print("Of 10 initial problems, {} were solved in less than {} seconds by this solver.".format(solved, timebound))
+    print("Problems that remain unsolved in the set are Problems: {}".format(unsolved))
+    print("The benchmark implementation solved 14 out of the 40 practice problems given 4 seconds.")
+    print("*************************************\n")
+    ##############################################################

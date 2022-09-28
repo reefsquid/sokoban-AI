@@ -133,16 +133,16 @@ class SokobanState(StateSpace):
                     map[storage_point[1]][storage_point[0]] = bg_colours[self.storage_colours[self.storage[storage_point]]] + '.' + bg_colours['normal']
         else:
             for (i, storage_point) in enumerate(self.storage):
-                map[storage_point[1]][storage_point[0]] = '.'
+                map[storage_point[1]][storage_point[0]] = 'S'
         for obstacle in self.obstacles:
-            map[obstacle[1]][obstacle[0]] = '#'
-        map[self.robot[1]][self.robot[0]] = '?'
+            map[obstacle[1]][obstacle[0]] = 'O'
+        map[self.robot[1]][self.robot[0]] = 'R'
         if self.box_colours:
             if disable_terminal_colouring:
                 for box in self.boxes:
                     if box in self.storage:
                         if self.restrictions is None or box in self.restrictions[self.boxes[box]]:
-                            map[box[1]][box[0]] = '$'
+                            map[box[1]][box[0]] = 'B'
                         else:
                             map[box[1]][box[0]] = 'x'
                     else:
@@ -151,7 +151,7 @@ class SokobanState(StateSpace):
                 for box in self.boxes:
                     if box in self.storage:
                         if self.restrictions is None or box in self.restrictions[self.boxes[box]]:
-                            map[box[1]][box[0]] = bg_colours[self.storage_colours[self.storage[box]]] + fg_colours[self.box_colours[self.boxes[box]]] + '$' + bg_colours['normal']
+                            map[box[1]][box[0]] = bg_colours[self.storage_colours[self.storage[box]]] + fg_colours[self.box_colours[self.boxes[box]]] + 'B' + bg_colours['normal']
                         else:
                             map[box[1]][box[0]] = bg_colours[self.storage_colours[self.storage[box]]] + fg_colours[self.box_colours[self.boxes[box]]] + 'x' + bg_colours['normal']
                     else:
@@ -160,17 +160,17 @@ class SokobanState(StateSpace):
             for box in self.boxes:
                 if box in self.storage:
                     if self.restrictions is None or box in self.restrictions[self.boxes[box]]:
-                        map[box[1]][box[0]] = '$'
+                        map[box[1]][box[0]] = 'B'
                     else:
                         map[box[1]][box[0]] = 'x'
                 else:
                     map[box[1]][box[0]] = '*'
 
         for y in range(0, self.height):
-            map[y] = ['#'] + map[y]
-            map[y] = map[y] + ['#']
-        map = ['#' * (self.width + 2)] + map
-        map = map + ['#' * (self.width + 2)]
+            map[y] = ['O'] + map[y]
+            map[y] = map[y] + ['O']
+        map = ['O' * (self.width + 2)] + map
+        map = map + ['O' * (self.width + 2)]
 
         s = ''
         for row in map:
@@ -218,97 +218,72 @@ def generate_coordinate_rect(x_start, x_finish, y_start, y_finish):
 """
 Sokoban Problem Set, for testing
 """
+
+# Assignment 1 https://office365-iad-prod.instructure.com/lti/linked-share-item/820694/rce_content_item_selection
 PROBLEMS = (
-    SokobanState("START", 0, None, 4, 4, # dimensions
-                 (0, 3), #robot
-                 {(1, 2): 0, (1, 1): 1}, #boxes 
-                 {(2, 1): 0, (2, 2): 1}, #storage
-                 frozenset(((0, 0), (1, 0), (3, 3))), #obstacles
-                 (frozenset(((2, 1),)), frozenset(((2, 2),))), #restrictions,
-                 {0: 'cyan', 1: 'magenta'}, #box colours
-                 {0: 'cyan', 1: 'magenta'} #storage colours
-                 ),
-    SokobanState("START", 0, None, 6, 4, # dimensions
-             (5, 3), #robot
-             {(1, 1): 0, (3, 1): 1}, #boxes 
-             {(2, 0): 0, (2, 2): 1}, #storage
-             frozenset(((2, 1), (0, 0), (5, 0), (0, 3), (1, 3), (2, 3), (3, 3))), #obstacles
-             (frozenset(((2, 0),)), frozenset(((2, 2),))), #restrictions,
-             {0: 'cyan', 1: 'magenta'}, #box colours
-             {0: 'cyan', 1: 'magenta'} #storage colours
+#Game 1
+SokobanState("START", 0, None, 6, 5,  # dimensions
+             (4, 0),  #robot
+             {(4, 1): 0, (4, 3): 1},  #boxes
+             {(5, 3): 0, (5, 4): 1},  #storage
+             frozenset(((3, 0), (3, 2), (0, 3), (1, 3), (2,3), (3, 3), (0, 4), (1, 4), (2, 4), (3, 4))),  #obstacles
+             None  # restrictions
              ),
-    SokobanState("START", 0, None, 5, 4, # dimensions
-             (0, 3), #robot
-             {(2, 1): 0, (3, 1): 1}, #boxes 
-             {(2, 1): 0, (3, 1): 1}, #storage
-             frozenset(((0, 0), (4, 0), (2, 3), (3, 3), (4, 3))), #obstacles
-             (frozenset(((3, 1),)), frozenset(((2, 1),))), #restrictions,
-             {0: 'cyan', 1: 'magenta'}, #box colours
-             {1: 'cyan', 0: 'magenta'} #storage colours
+#Game 2
+SokobanState("START", 0, None, 6, 3,  # dimensions
+             (0, 0), #robot
+             {(2, 1): 0, (3, 1): 1}, #, #boxes
+             {(0, 2): 0, (1, 2): 1}, #storage
+             frozenset(((3, 0))), #obstacles
+             None
+             #frozenset(((0, 2), (1, 2))) #restrictions
              ),
-    SokobanState("START", 0, None, 5, 5, # dimensions
-                 (2, 1), # robot
-                 {(1, 1): 0, (1, 3): 1, (3, 1): 2, (3, 3): 3}, #boxes 
-                 {(0, 0): 0, (0, 4): 1, (4, 0): 2, (4, 4): 3}, #storage
-                 frozenset(((1, 0), (2, 0), (3, 0), (1, 4), (2, 4), (3, 4))), #obstacles
-                 None #restrictions
-                 ),
-    SokobanState("START", 0, None, 5, 5, # dimensions
-                 (4, 0), #robot
-                 {(3, 1): 0, (3, 2): 1, (3, 3): 2}, #boxes 
-                 {(0, 0): 0, (0, 2): 1, (0, 4): 2}, #storage
-                 frozenset(((2, 0), (2, 1), (2, 3), (2, 4))), #obstacles
-                 None #restrictions
-                 ),
-    SokobanState("START", 0, None, 5, 5, # dimensions
-                 (4, 0), #robot
-                 {(3, 1): 0, (3, 2): 1, (3, 3): 2}, #boxes 
-                 {(0, 0): 0, (0, 2): 1, (0, 4): 2}, #storage
-                 frozenset(((2, 0), (2, 1), (2, 3), (2, 4))), #obstacles
-                 None #restrictions
-                 ),
-    SokobanState("START", 0, None, 6, 4, # dimensions
-         (5, 3), #robot
-         {(3, 1): 0, (2, 2): 1, (3, 2): 2, (4, 2): 3}, #boxes 
-         {(0, 0): 0, (2, 0): 1, (1, 0): 2, (1, 1): 3}, #storage
-         frozenset((generate_coordinate_rect(4, 6, 0, 1)
-                   + generate_coordinate_rect(0, 3, 3, 4))), #obstacles
-         (frozenset(((0, 0),)), frozenset(((2, 0),)), frozenset(((1, 0),)), frozenset(((1, 1),))), #restrictions,
-         {0: 'cyan', 1: 'magenta', 2: 'yellow', 3: 'red'}, #box colours
-         {0: 'cyan', 1: 'magenta', 2: 'yellow', 3: 'red'} #storage colours
-         ),
-    SokobanState("START", 0, None, 6, 4, # dimensions
-         (5, 3), #robot
-         {(3, 1): 0, (2, 2): 1, (3, 2): 2, (4, 2): 3}, #boxes 
-         {(0, 0): 0, (2, 0): 1, (1, 0): 2, (1, 1): 3}, #storage
-         frozenset((generate_coordinate_rect(4, 6, 0, 1)
-                   + generate_coordinate_rect(0, 3, 3, 4))), #obstacles
-         (frozenset(((0, 0),)), frozenset(((2, 0),)), frozenset(((1, 0),)), frozenset(((0, 0), (2, 0), (1, 0), (1, 1),))), #restrictions,
-         {0: 'cyan', 1: 'magenta', 2: 'yellow', 3: 'normal'}, #box colours
-         {0: 'cyan', 1: 'magenta', 2: 'yellow', 3: 'red'} #storage colours
-         ),
-    SokobanState("START", 0, None, 8, 6, # dimensions
-         (1, 2), #robot
-         {(1, 3): 0, (2, 3): 1, (3, 3): 2, (4, 3): 3, (5, 3): 4}, #boxes 
-         {(7, 0): 0, (7, 1): 1, (7, 2): 2, (7, 3): 3, (7, 4): 4}, #storage
-         frozenset((generate_coordinate_rect(0, 7, 0, 2) + [(0, 2), (6, 2), (7, 5)]
-         + generate_coordinate_rect(0, 5, 5, 6))), #obstacles
-         (frozenset(((7, 0),)), frozenset(((7, 1),)), frozenset(((7, 2),)), frozenset(((7, 3),)), frozenset(((7, 4),))), #restrictions,
-         {0: 'cyan', 1: 'magenta', 2: 'yellow', 3: 'red', 4: 'green'}, #box colours
-         {0: 'cyan', 1: 'magenta', 2: 'yellow', 3: 'red', 4: 'green'} #storage colours
-         ),
-    SokobanState("START", 0, None, 6, 5, # dimensions
-         (5, 2), #robot
-         {(3, 1): 0, (3, 2): 1, (3, 3): 2, (4, 2): 3}, #boxes 
-         {(1, 2): 0, (2, 2): 1, (3, 2): 2, (0, 2): 3}, #storage
-         frozenset((generate_coordinate_rect(4, 6, 0, 1)
-                    + generate_coordinate_rect(3, 6, 4, 5))
-                    + [(1, 1), (1, 3)]), #obstacles
-         (frozenset(((1, 2),)), frozenset(((2, 2),)), frozenset(((3, 2),)), frozenset(((0, 2),)), frozenset(((7, 4),))), #restrictions,
-         {0: 'cyan', 1: 'magenta', 2: 'yellow', 3: 'red', 4: 'green'}, #box colours
-         {0: 'cyan', 1: 'magenta', 2: 'yellow', 3: 'red', 4: 'green'} #storage colours
-         ),
-    )
+# #Game 2
+# SokobanState("START", 0, None, 6, 3,  # dimensions
+#              (0, 0), #robot
+#              {(2, 1): 0, (3, 1): 1, (4, 1): 2}, #, #boxes
+#              {(0, 2): 0, (1, 2): 1}, #storage
+#              frozenset(((3, 0))), #obstacles
+#              None
+#              #frozenset(((0, 2), (1, 2))) #restrictions
+#              ),
+#Game 3
+SokobanState("START", 0, None, 9, 6, # dimensions
+             (0, 0), #robot
+             {(1, 1): 0, (1, 3): 1, (3, 1): 2, (3, 4): 3}, #, #boxes
+             {(1, 0): 0, (2, 0): 1, (4, 2): 2}, #storage
+             frozenset(((5, 0), (6, 0), (5, 1), (6, 1), (0,2), (2,2), (5, 2), (6,2), (3, 3), (4, 3), (5, 3), (8, 3), (3, 5), (4, 5), (5, 5))), #obstacles
+             None
+             #frozenset(((1, 0), (2, 0), (4, 2)))
+             ),
+#Game 4
+SokobanState("START", 0, None, 6, 6, # dimensions
+             (1, 1), #robot
+             {(2, 1): 0, (1, 2): 1, (2, 2): 2}, #, #boxes
+             {(0, 4): 0, (2, 4): 1, (4, 5): 2}, #storage
+             frozenset(((0, 0), (1, 0), (2, 0), (0, 1), (4, 1), (0, 2), (2, 3), (3, 3), (5, 3), (0, 5))), #obstacles
+             None
+             #frozenset(((0, 2), (1, 2))) #restrictions,
+             ),
+#Game 5
+SokobanState("START", 0, None, 6, 5, # dimensions
+             (0, 0), #robot
+             {(1, 2): 0, (2, 1): 1, (3, 1): 2}, #, #boxes
+             {(3, 0): 0, (4, 0): 1, (5, 0): 2}, #storage
+             frozenset(((2, 0), (2, 3), (2, 4), (3, 3), (3, 4), (4, 3), (4, 4), (5, 3), (5, 4))), #obstacles
+             None
+             #frozenset(((0, 2), (1, 2))) #restrictions,
+             ),
+#Game 6
+SokobanState("START", 0, None, 9, 6, # dimensions
+             (5, 4), #robot
+             {(1, 4): 0, (4, 4): 1, (6, 4): 2, (7, 2): 3}, #, #boxes
+             {(7, 3): 0, (8, 3): 1, (7, 5): 2}, #storage
+             frozenset(((2, 3), (3, 0), (3, 1), (3, 2), (4, 2), (5, 2), (5, 3), (5, 5), (6, 3), (8, 5))), #obstacles
+             None
+             #frozenset(((0, 2), (1, 2))) #restrictions,
+             )
+)
 
 """
 Sokoban Directions: encodes directions of movement that are possible for each robot.
@@ -352,10 +327,10 @@ class Direction():
 
 
 #Global Directions
-UP = Direction("up", (0, -1))
-RIGHT = Direction("right", (1, 0))
-DOWN = Direction("down", (0, 1))
-LEFT = Direction("left", (-1, 0))
+UP = Direction("north", (0, -1))
+RIGHT = Direction("east", (1, 0))
+DOWN = Direction("south", (0, 1))
+LEFT = Direction("west", (-1, 0))
 
 
 
