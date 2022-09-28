@@ -5,9 +5,12 @@ from search import *
 #from test_problems import PROBLEMS
 
 #Select what to test
+# Manhattan Distance Heuristic
 test_manhattan = False
-test_anytime_gbfs = True
-test_anytime_weighted_astar = False
+# Greedy Best
+test_anytime_gbfs = False
+# A*
+test_anytime_weighted_astar = True
 test_fval_function = False
 
 if test_manhattan:
@@ -20,8 +23,8 @@ if test_manhattan:
 
     solved = 0; unsolved = []
 
-    for i in range(0, 10):
-        print("PROBLEM {}".format(i))
+    for i in range(0, 6):
+        print("PROBLEM {}".format(i+1))
 
         s0 = PROBLEMS[i]
 
@@ -49,11 +52,10 @@ if test_anytime_gbfs:
   ##############################################################
   # TEST ANYTIME GBFS
   print('Testing Anytime GBFS')
-
   solved = 0; unsolved = []; benchmark = 0; timebound = 8 #8 second time limit 
-  for i in range(0, 10):
+  for i in range(0, 6):
     print("*************************************")  
-    print("PROBLEM {}".format(i))
+    print("PROBLEM {}".format(i+1))
 
     s0 = PROBLEMS[i] #Problems get harder as i gets bigger
     weight = 10
@@ -74,7 +76,9 @@ if test_anytime_gbfs:
   print("The benchmark implementation solved 6 out of the 10 practice problems given 8 seconds.")  
   print("*************************************\n") 
   ##############################################################
+#BFS
 
+#DFS
 if test_anytime_weighted_astar:
 
   len_benchmark = [23, 35, 27, 20, 41, 41, -99, -99, -99, -99]
@@ -84,9 +88,9 @@ if test_anytime_weighted_astar:
   print('Testing Anytime Weighted A Star')
 
   solved = 0; unsolved = []; benchmark = 0; timebound = 8 #8 second time limit 
-  for i in range(0, 10):
+  for i in range(0, 6):
     print("*************************************")  
-    print("PROBLEM {}".format(i))
+    print("PROBLEM {}".format(i+1))
 
     s0 = PROBLEMS[i] #Problems get harder as i gets bigger
     weight = 10
