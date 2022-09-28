@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="f04a08d3-1770-48f4-a4ae-de0a5d603cb4" name="Changes" comment="" />
+=======
+    <list default="true" id="938de2f1-2e21-4ab0-a46a-4584b61cc2dd" name="Changes" comment="" />
+>>>>>>> b456cb1dbb13b7337c589a44d4f1863a72fe7f6f
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,7 +20,11 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectId" id="2FNllxpB61nxrBgLwyJ87HXx0d6" />
+=======
+  <component name="ProjectId" id="2FMYHQJM2zYJe8nd2X18g67UVIG" />
+>>>>>>> b456cb1dbb13b7337c589a44d4f1863a72fe7f6f
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -25,27 +33,48 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+<<<<<<< HEAD
     "settings.editor.selected.configurable": "editor.preferences.tabs"
   },
   "keyToStringList": {
     "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
       "Markdown"
+=======
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "Markdown",
+      "JSUnicodeRegexp"
+>>>>>>> b456cb1dbb13b7337c589a44d4f1863a72fe7f6f
     ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+<<<<<<< HEAD
       <recent name="C:\Users\17273\OneDrive\Documents\GitHub\sokoban-AI2" />
+=======
+      <recent name="C:\Users\17273\OneDrive\Documents\GitHub\sokoban-AI" />
+>>>>>>> b456cb1dbb13b7337c589a44d4f1863a72fe7f6f
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
       <changelist id="f04a08d3-1770-48f4-a4ae-de0a5d603cb4" name="Changes" comment="" />
       <created>1664340578461</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1664340578461</updated>
+=======
+      <changelist id="938de2f1-2e21-4ab0-a46a-4584b61cc2dd" name="Changes" comment="" />
+      <created>1664303336342</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1664303336342</updated>
+>>>>>>> b456cb1dbb13b7337c589a44d4f1863a72fe7f6f
     </task>
     <servers />
   </component>

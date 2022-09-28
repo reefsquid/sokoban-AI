@@ -2,7 +2,7 @@
 
     A) Class SokobanState
 
-    A specializion of the StateSpace Class that is tailored to the game of Sokoban.
+    A specialization of the StateSpace Class that is tailored to the game of Sokoban.
 
     B) class Direction
 
@@ -40,7 +40,7 @@ class SokobanState(StateSpace):
         self.restrictions = restrictions
         self.box_colours = box_colours
         self.storage_colours = storage_colours
-
+# Successors function
     def successors(self):
         """
         Generate all the actions that can be performed from this state, and the states those actions will create.        
@@ -92,6 +92,7 @@ class SokobanState(StateSpace):
         """
         return hash((self.robot, frozenset(self.boxes.items())))
 
+    # Initiate function
     def state_string(self):
         """
         Return a string representation of a state that can be printed to stdout.
@@ -144,7 +145,7 @@ class SokobanState(StateSpace):
                         if self.restrictions is None or box in self.restrictions[self.boxes[box]]:
                             map[box[1]][box[0]] = 'B'
                         else:
-                            map[box[1]][box[0]] = 'x'
+                            map[box[1]][box[0]] = 'B'
                     else:
                         map[box[1]][box[0]] = self.box_colours[self.boxes[box]][0:1].lower()
             else:
@@ -155,16 +156,16 @@ class SokobanState(StateSpace):
                         else:
                             map[box[1]][box[0]] = bg_colours[self.storage_colours[self.storage[box]]] + fg_colours[self.box_colours[self.boxes[box]]] + 'x' + bg_colours['normal']
                     else:
-                        map[box[1]][box[0]] = fg_colours[self.box_colours[self.boxes[box]]] + '*' + fg_colours['normal']
+                        map[box[1]][box[0]] = fg_colours[self.box_colours[self.boxes[box]]] + 'B' + fg_colours['normal']
         else:
             for box in self.boxes:
                 if box in self.storage:
                     if self.restrictions is None or box in self.restrictions[self.boxes[box]]:
                         map[box[1]][box[0]] = 'B'
                     else:
-                        map[box[1]][box[0]] = 'x'
+                        map[box[1]][box[0]] = 'B'
                 else:
-                    map[box[1]][box[0]] = '*'
+                    map[box[1]][box[0]] = 'B'
 
         for y in range(0, self.height):
             map[y] = ['O'] + map[y]
@@ -218,7 +219,10 @@ def generate_coordinate_rect(x_start, x_finish, y_start, y_finish):
 """
 Sokoban Problem Set, for testing
 """
+<<<<<<< HEAD
 
+=======
+>>>>>>> b456cb1dbb13b7337c589a44d4f1863a72fe7f6f
 # Assignment 1 https://office365-iad-prod.instructure.com/lti/linked-share-item/820694/rce_content_item_selection
 PROBLEMS = (
 #Game 1
@@ -232,6 +236,7 @@ SokobanState("START", 0, None, 6, 5,  # dimensions
 #Game 2
 SokobanState("START", 0, None, 6, 3,  # dimensions
              (0, 0), #robot
+<<<<<<< HEAD
              {(2, 1): 0, (3, 1): 1}, #, #boxes
              {(0, 2): 0, (1, 2): 1}, #storage
              frozenset(((3, 0))), #obstacles
@@ -247,6 +252,14 @@ SokobanState("START", 0, None, 6, 3,  # dimensions
 #              None
 #              #frozenset(((0, 2), (1, 2))) #restrictions
 #              ),
+=======
+             {(2, 1): 0, (3, 1): 1, (4, 1): 2}, #, #boxes
+             {(0, 2): 0, (1, 2): 1}, #storage
+             frozenset(((3, 0))), #obstacles
+             None
+             #frozenset(((0, 2), (1, 2))) #restrictions,
+             ),
+>>>>>>> b456cb1dbb13b7337c589a44d4f1863a72fe7f6f
 #Game 3
 SokobanState("START", 0, None, 9, 6, # dimensions
              (0, 0), #robot
@@ -254,7 +267,11 @@ SokobanState("START", 0, None, 9, 6, # dimensions
              {(1, 0): 0, (2, 0): 1, (4, 2): 2}, #storage
              frozenset(((5, 0), (6, 0), (5, 1), (6, 1), (0,2), (2,2), (5, 2), (6,2), (3, 3), (4, 3), (5, 3), (8, 3), (3, 5), (4, 5), (5, 5))), #obstacles
              None
+<<<<<<< HEAD
              #frozenset(((1, 0), (2, 0), (4, 2)))
+=======
+             #frozenset(((1, 0), (2, 0), (4, 2))) #restrictions,
+>>>>>>> b456cb1dbb13b7337c589a44d4f1863a72fe7f6f
              ),
 #Game 4
 SokobanState("START", 0, None, 6, 6, # dimensions
@@ -284,7 +301,10 @@ SokobanState("START", 0, None, 9, 6, # dimensions
              #frozenset(((0, 2), (1, 2))) #restrictions,
              )
 )
+<<<<<<< HEAD
 
+=======
+>>>>>>> b456cb1dbb13b7337c589a44d4f1863a72fe7f6f
 """
 Sokoban Directions: encodes directions of movement that are possible for each robot.
 """

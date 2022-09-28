@@ -2,13 +2,36 @@
 from solution import *
 from search import *
 
+<<<<<<< HEAD
 
 # Select algorithm to test
 test_breadth_first_search = True
 test_depth_first_search = False
 test_manhattan = False
 test_anytime_gbfs = False
+=======
+#Select what to test
+
+#BFS
+test_bfs = True
+
+#DFS
+test_dfs = False
+
+# Manhattan Distance Heuristic
+test_manhattan = False
+
+#Non-Trivial Heuristic
+test_alternate = False
+
+# Greedy Best
+test_anytime_gbfs = False
+
+# A*
+>>>>>>> b456cb1dbb13b7337c589a44d4f1863a72fe7f6f
 test_anytime_weighted_astar = False
+
+#F-val
 test_fval_function = False
 test_alternate = True
 
@@ -78,6 +101,75 @@ if test_depth_first_search:
     print("*************************************\n")
     ##############################################################
 
+#BFS
+if test_bfs:
+    len_benchmark = [23, 35, 27, 20, 41, 41, -99, -99, -99, -99]
+
+    ##############################################################
+    # TEST BFS
+    print('Testing BFS')
+
+    solved = 0;
+    unsolved = [];
+    benchmark = 0;
+    timebound = 10  # 10 second time limit
+    for i in range(0, len(PROBLEMS)):
+        print("*************************************")
+        print("PROBLEM {}".format(i+1))
+
+        s0 = PROBLEMS[i]  # Problems get harder as i gets bigger
+        se = SearchEngine('breadth_first', 'full')
+        se.init_search(s0, goal_fn=sokoban_goal_state, heur_fn=heur_alternate)
+        # se.init_search(s0, goal_fn=sokoban_goal_state, heur_fn=heur_euclidean_distance)
+        final = se.search(timebound)
+
+        if final:
+            final.print_path()
+            solved += 1
+        else:
+            unsolved.append(i)
+
+    print("\n*************************************")
+    print("Of 10 initial problems, {} were solved in less than {} seconds by this solver.".format(solved, timebound))
+    print("Problems that remain unsolved in the set are Problems: {}".format(unsolved))
+    print("The benchmark implementation solved 14 out of the 40 practice problems given 4 seconds.")
+    print("*************************************\n")
+    ##############################################################
+#DFS
+if test_dfs:
+
+    ##############################################################
+    # TEST BFS
+    print('Testing DFS')
+    print('Testing alternate heuristic with greedy best-first search')
+
+    solved = 0;
+    unsolved = [];
+    benchmark = 0;
+    timebound = 4  # 4 second time limit
+    for i in range(0, len(PROBLEMS)):
+        print("*************************************")
+        print("PROBLEM {}".format(i+1))
+
+        s0 = PROBLEMS[i]  # Problems get harder as i gets bigger
+        se = SearchEngine('depth_first', 'full')
+        se.init_search(s0, goal_fn=sokoban_goal_state, heur_fn=heur_alternate)
+        # se.init_search(s0, goal_fn=sokoban_goal_state, heur_fn=heur_euclidean_distance)
+        final = se.search(timebound)
+
+        if final:
+            final.print_path()
+            solved += 1
+        else:
+            unsolved.append(i)
+
+    print("\n*************************************")
+    print("Of 10 initial problems, {} were solved in less than {} seconds by this solver.".format(solved, timebound))
+    print("Problems that remain unsolved in the set are Problems: {}".format(unsolved))
+    print("The benchmark implementation solved 14 out of the 40 practice problems given 4 seconds.")
+    print("*************************************\n")
+    ##############################################################
+
 if test_manhattan:
     ##############################################################
     # TEST MANHATTAN DISTANCE
@@ -108,7 +200,36 @@ if test_manhattan:
     print("States that were incorrect: {}".format(unsolved))      
     print("*************************************\n") 
     ##############################################################
+#non-trivial heuristic
+if test_alternate:
 
+  ##############################################################
+  # TEST ALTERNATE HEURISTIC
+  print('Testing alternate heuristic with greedy best-first search')
+
+  solved = 0; unsolved = []; benchmark = 0; timebound = 4 #4 second time limit
+  for i in range(0, len(PROBLEMS)):
+    print("*************************************")
+    print("PROBLEM {}".format(i))
+
+    s0 = PROBLEMS[i] #Problems get harder as i gets bigger
+    se = SearchEngine('best_first', 'full')
+    se.init_search(s0, goal_fn=sokoban_goal_state, heur_fn=heur_alternate)
+    #se.init_search(s0, goal_fn=sokoban_goal_state, heur_fn=heur_euclidean_distance)
+    final = se.search(timebound)
+
+    if final:
+      final.print_path()
+      solved += 1
+    else:
+      unsolved.append(i)
+
+  print("\n*************************************")
+  print("Of 10 initial problems, {} were solved in less than {} seconds by this solver.".format(solved, timebound))
+  print("Problems that remain unsolved in the set are Problems: {}".format(unsolved))
+  print("The benchmark implementation solved 14 out of the 40 practice problems given 4 seconds.")
+  print("*************************************\n")
+  ##############################################################
 
 if test_anytime_gbfs:
 
@@ -117,7 +238,6 @@ if test_anytime_gbfs:
   ##############################################################
   # TEST ANYTIME GBFS
   print('Testing Anytime GBFS')
-
   solved = 0; unsolved = []; benchmark = 0; timebound = 8 #8 second time limit 
   for i in range(0, 6):
     print("*************************************")  
@@ -143,6 +263,9 @@ if test_anytime_gbfs:
   print("*************************************\n") 
   ##############################################################
 
+
+
+#A Star
 if test_anytime_weighted_astar:
 
   len_benchmark = [23, 35, 27, 20, 41, 41, -99, -99, -99, -99]
